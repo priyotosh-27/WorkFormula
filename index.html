@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobQuest - Find Your Dream Job</title>
+    <title>WorkFormula - Find Your Dream Job</title>
     <style>
         * {
             margin: 0;
@@ -12,19 +12,55 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: linear-gradient(135deg, #f5f0ff 0%, #e0f2fe 50%, #fce7f3 100%);
+            --bg-card: white;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            --gradient-accent: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+            --accent-light: #f3e8ff;
+            --accent-border: #e9d5ff;
+            --footer-bg: #1f2937;
+            --footer-text: white;
+            --footer-border: #374151;
+        }
+
+        body.dark-mode {
+            --bg-primary: linear-gradient(135deg, #1e1b4b 0%, #0c4a6e 50%, #831843 100%);
+            --bg-card: #1f2937;
+            --text-primary: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --text-tertiary: #9ca3af;
+            --border-color: #374151;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.6);
+            --accent-light: #312e81;
+            --accent-border: #4c1d95;
+            --footer-bg: #111827;
+            --footer-text: #f3f4f6;
+            --footer-border: #1f2937;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f0ff 0%, #e0f2fe 50%, #fce7f3 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
+            transition: background 0.3s ease;
         }
 
         .header {
-            background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: var(--bg-card);
+            box-shadow: var(--shadow);
             padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: background 0.3s ease;
         }
 
         .header-content {
@@ -42,7 +78,7 @@
         }
 
         .logo {
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             width: 50px;
             height: 50px;
@@ -56,7 +92,7 @@
         }
 
         .logo-text h1 {
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -66,7 +102,7 @@
 
         .logo-text p {
             font-size: 0.75rem;
-            color: #6b7280;
+            color: var(--text-secondary);
         }
 
         .header-buttons {
@@ -75,21 +111,45 @@
             align-items: center;
         }
 
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-light);
+            border-color: #9333ea;
+        }
+
         .user-greeting {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 0.75rem 1.25rem;
-            background: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+            background: var(--gradient-accent);
             border-radius: 12px;
             font-weight: 600;
             color: #7c3aed;
         }
 
+        body.dark-mode .user-greeting {
+            color: #c4b5fd;
+        }
+
         .user-avatar {
             width: 35px;
             height: 35px;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -108,19 +168,8 @@
             font-size: 0.95rem;
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: #9333ea;
-            border: 2px solid #e5e7eb;
-        }
-
-        .btn-secondary:hover {
-            background: #f3e8ff;
-            border-color: #9333ea;
-        }
-
         .btn-primary {
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
         }
@@ -131,7 +180,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 50%, #ec4899 100%);
+            background: var(--gradient-primary);
             color: white;
             padding: 4rem 2rem;
             text-align: center;
@@ -171,6 +220,10 @@
             padding: 0 1rem;
         }
 
+        body.dark-mode .search-input-wrapper {
+            background: #374151;
+        }
+
         .search-input-wrapper svg {
             color: #9ca3af;
             margin-right: 0.5rem;
@@ -186,9 +239,17 @@
             color: #1f2937;
         }
 
+        body.dark-mode .search-input {
+            color: #f3f4f6;
+        }
+
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+
         .search-btn {
             padding: 1rem 2rem;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             border-radius: 15px;
@@ -239,13 +300,14 @@
         }
 
         .filter-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 100px;
             margin-bottom: 1.5rem;
+            transition: background 0.3s ease;
         }
 
         .filter-header {
@@ -257,7 +319,7 @@
 
         .filter-header h3 {
             font-size: 1.2rem;
-            color: #1f2937;
+            color: var(--text-primary);
         }
 
         .filter-group {
@@ -267,7 +329,7 @@
         .filter-group label {
             display: block;
             font-weight: 600;
-            color: #374151;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
@@ -275,11 +337,13 @@
         .filter-select {
             width: 100%;
             padding: 0.75rem;
-            border: 2px solid #e5e7eb;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             outline: none;
             font-size: 0.95rem;
             transition: border-color 0.3s;
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .filter-select:focus {
@@ -290,7 +354,7 @@
             width: 100%;
             padding: 0.75rem;
             background: transparent;
-            border: 2px solid #e5e7eb;
+            border: 2px solid var(--border-color);
             color: #9333ea;
             border-radius: 10px;
             font-weight: 600;
@@ -299,14 +363,14 @@
         }
 
         .clear-filters:hover {
-            background: #f3e8ff;
+            background: var(--accent-light);
             border-color: #9333ea;
         }
 
         .saved-jobs-btn {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             border-radius: 12px;
@@ -338,20 +402,20 @@
 
         .jobs-header h3 {
             font-size: 1.8rem;
-            color: #1f2937;
+            color: var(--text-primary);
         }
 
         .jobs-count {
-            color: #6b7280;
+            color: var(--text-secondary);
             font-size: 1rem;
         }
 
         .job-card {
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
@@ -359,8 +423,8 @@
 
         .job-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            border-color: #e9d5ff;
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent-border);
         }
 
         .job-card-content {
@@ -395,7 +459,7 @@
         .job-title {
             font-size: 1.4rem;
             font-weight: bold;
-            color: #1f2937;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
@@ -403,7 +467,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #6b7280;
+            color: var(--text-secondary);
             font-weight: 600;
         }
 
@@ -426,7 +490,7 @@
         }
 
         .save-btn:hover {
-            background: #f3e8ff;
+            background: var(--accent-light);
         }
 
         .save-btn.saved {
@@ -455,9 +519,19 @@
             color: #7c3aed;
         }
 
+        body.dark-mode .tag-location {
+            background: #4c1d95;
+            color: #c4b5fd;
+        }
+
         .tag-type {
             background: #dbeafe;
             color: #2563eb;
+        }
+
+        body.dark-mode .tag-type {
+            background: #1e3a8a;
+            color: #93c5fd;
         }
 
         .tag-salary {
@@ -465,14 +539,29 @@
             color: #059669;
         }
 
+        body.dark-mode .tag-salary {
+            background: #064e3b;
+            color: #6ee7b7;
+        }
+
         .tag-sector {
             background: #fef3c7;
             color: #d97706;
         }
 
+        body.dark-mode .tag-sector {
+            background: #78350f;
+            color: #fcd34d;
+        }
+
         .tag-deadline {
             background: #fee2e2;
             color: #dc2626;
+        }
+
+        body.dark-mode .tag-deadline {
+            background: #7f1d1d;
+            color: #fca5a5;
         }
 
         .skills {
@@ -484,11 +573,15 @@
 
         .skill-badge {
             padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+            background: var(--gradient-accent);
             color: #7c3aed;
             border-radius: 10px;
             font-size: 0.8rem;
             font-weight: 600;
+        }
+
+        body.dark-mode .skill-badge {
+            color: #c4b5fd;
         }
 
         .job-footer {
@@ -496,14 +589,14 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 1rem;
-            border-top: 2px solid #f3f4f6;
+            border-top: 2px solid var(--border-color);
             margin-top: 1rem;
         }
 
         .job-meta {
             display: flex;
             gap: 1.5rem;
-            color: #6b7280;
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
@@ -549,7 +642,7 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--bg-card);
             border-radius: 30px;
             max-width: 900px;
             width: 100%;
@@ -572,7 +665,7 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             padding: 2rem;
             border-radius: 30px 30px 0 0;
@@ -647,7 +740,7 @@
         .btn-apply {
             flex: 1;
             padding: 1rem;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             border-radius: 15px;
@@ -681,27 +774,27 @@
         }
 
         .btn-save:hover {
-            background: #f3e8ff;
+            background: var(--accent-light);
         }
 
         .btn-save.saved {
-            background: #f3e8ff;
+            background: var(--accent-light);
             color: #ef4444;
             border-color: #ef4444;
         }
 
         .btn-share {
             padding: 1rem 1.5rem;
-            border: 2px solid #d1d5db;
+            border: 2px solid var(--border-color);
             background: transparent;
-            color: #6b7280;
+            color: var(--text-secondary);
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .btn-share:hover {
-            background: #f3f4f6;
+            background: var(--accent-light);
         }
 
         .section {
@@ -728,11 +821,11 @@
         .section-title {
             font-size: 1.4rem;
             font-weight: bold;
-            color: #1f2937;
+            color: var(--text-primary);
         }
 
         .section-content {
-            color: #4b5563;
+            color: var(--text-secondary);
             line-height: 1.8;
         }
 
@@ -745,7 +838,7 @@
             align-items: start;
             gap: 1rem;
             margin-bottom: 0.75rem;
-            color: #4b5563;
+            color: var(--text-secondary);
         }
 
         .list-icon {
@@ -765,7 +858,7 @@
             align-items: center;
             gap: 0.75rem;
             padding: 1rem;
-            background: linear-gradient(135deg, #f3e8ff 0%, #dbeafe 100%);
+            background: var(--gradient-accent);
             border-radius: 15px;
         }
 
@@ -775,7 +868,7 @@
 
         .benefit-text {
             font-weight: 600;
-            color: #374151;
+            color: var(--text-primary);
         }
 
         .welcome-modal {
@@ -793,7 +886,7 @@
         }
 
         .welcome-content {
-            background: white;
+            background: var(--bg-card);
             border-radius: 30px;
             padding: 3rem 2rem;
             max-width: 500px;
@@ -805,7 +898,7 @@
         .welcome-icon {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -816,12 +909,12 @@
 
         .welcome-content h2 {
             font-size: 2rem;
-            color: #1f2937;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .welcome-content p {
-            color: #6b7280;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             font-size: 1.1rem;
         }
@@ -829,12 +922,14 @@
         .form-input {
             width: 100%;
             padding: 1rem;
-            border: 2px solid #e5e7eb;
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             font-size: 1rem;
             outline: none;
             transition: border-color 0.3s;
             margin-bottom: 1.5rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .form-input:focus {
@@ -844,9 +939,9 @@
         .no-jobs {
             text-align: center;
             padding: 3rem 2rem;
-            background: white;
+            background: var(--bg-card);
             border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
         }
 
         .no-jobs-icon {
@@ -856,18 +951,19 @@
 
         .no-jobs h3 {
             font-size: 1.5rem;
-            color: #1f2937;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .no-jobs p {
-            color: #6b7280;
+            color: var(--text-secondary);
         }
 
         footer {
-            background: #1f2937;
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             margin-top: 4rem;
+            transition: background 0.3s ease;
         }
 
         .footer-content {
@@ -889,7 +985,7 @@
         }
 
         .footer-section p {
-            color: #9ca3af;
+            color: var(--text-tertiary);
             line-height: 1.8;
             margin-bottom: 1.5rem;
         }
@@ -902,7 +998,7 @@
         .social-link {
             width: 45px;
             height: 45px;
-            background: #374151;
+            background: var(--footer-border);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -926,7 +1022,7 @@
         }
 
         .footer-links a {
-            color: #9ca3af;
+            color: var(--text-tertiary);
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -936,10 +1032,10 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid #374151;
+            border-top: 1px solid var(--footer-border);
             padding-top: 2rem;
             text-align: center;
-            color: #9ca3af;
+            color: var(--text-tertiary);
         }
 
         @keyframes fadeInDown {
@@ -956,7 +1052,7 @@
 
         .mobile-menu-btn {
             display: none;
-            background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             width: 40px;
@@ -1012,10 +1108,6 @@
                 flex-direction: column;
             }
 
-            .header-buttons .btn-secondary {
-                display: none;
-            }
-
             .modal-header-content {
                 flex-direction: column;
             }
@@ -1043,7 +1135,7 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
             <div class="welcome-icon">👋</div>
-            <h2>Welcome to JobQuest!</h2>
+            <h2>Welcome to WorkFormula!</h2>
             <p>Please tell us your name to get started</p>
             <input type="text" class="form-input" id="userName" placeholder="Enter your name" />
             <button class="btn btn-primary" onclick="saveUserName()" style="width: 100%;">Get Started</button>
@@ -1053,14 +1145,14 @@
     <header class="header">
         <div class="header-content">
             <div class="logo-section">
-                <div class="logo">JQ</div>
+                <div class="logo">WF</div>
                 <div class="logo-text">
-                    <h1>JobQuest</h1>
+                    <h1>WorkFormula</h1>
                     <p>Find Your Dream Career</p>
                 </div>
             </div>
             <div class="header-buttons">
-                <button class="btn btn-secondary">For Employers</button>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
                 <div class="user-greeting" id="userGreeting" style="display: none;">
                     <div class="user-avatar" id="userAvatar"></div>
                     <span id="greetingText"></span>
@@ -1215,52 +1307,52 @@
             <div class="footer-grid">
                 <div class="footer-section">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div class="logo">JQ</div>
-                        <span style="font-size: 1.3rem; font-weight: bold;">JobQuest</span>
+                        <div class="logo">WF</div>
+                        <span style="font-size: 1.3rem; font-weight: bold;">WorkFormula</span>
                     </div>
                     <p>Your gateway to amazing career opportunities. Connect with top companies and find your dream job.
                     </p>
                     <div class="social-links">
-                        <div class="social-link">📘</div>
-                        <div class="social-link">🐦</div>
-                        <div class="social-link">💼</div>
-                        <div class="social-link">📷</div>
+                        <div class="social-link" onclick="openLink('https://facebook.com')">📘</div>
+                        <div class="social-link" onclick="openLink('https://twitter.com')">🐦</div>
+                        <div class="social-link" onclick="openLink('https://linkedin.com')">💼</div>
+                        <div class="social-link" onclick="openLink('https://instagram.com')">📷</div>
                     </div>
                 </div>
 
                 <div class="footer-section">
                     <h4>For Job Seekers</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Browse Jobs</a></li>
-                        <li><a href="#">Career Advice</a></li>
-                        <li><a href="#">Resume Builder</a></li>
-                        <li><a href="#">Saved Jobs</a></li>
+                        <li><a href="#" onclick="scrollToTop()">Browse Jobs</a></li>
+                        <li><a href="#" onclick="showSavedJobs()">Saved Jobs</a></li>
+                        <li><a href="#" onclick="alert('Career advice coming soon!')">Career Advice</a></li>
+                        <li><a href="#" onclick="alert('Resume builder coming soon!')">Resume Builder</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4>For Employers</h4>
+                    <h4>Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Post a Job</a></li>
-                        <li><a href="#">Browse Candidates</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Employer Resources</a></li>
+                        <li><a href="#" onclick="alert('Help center coming soon!')">Help Center</a></li>
+                        <li><a href="#" onclick="alert('FAQ coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="alert('Blog coming soon!')">Blog</a></li>
+                        <li><a href="#" onclick="alert('Success stories coming soon!')">Success Stories</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
                     <h4>Company</h4>
                     <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#" onclick="alert('About page coming soon!')">About Us</a></li>
+                        <li><a href="#" onclick="alert('Contact page coming soon!')">Contact</a></li>
+                        <li><a href="#" onclick="alert('Privacy policy coming soon!')">Privacy Policy</a></li>
+                        <li><a href="#" onclick="alert('Terms page coming soon!')">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 JobQuest. All rights reserved. Built with passion for job seekers worldwide. 🚀</p>
+                <p>&copy; 2025 WorkFormula. All rights reserved. Built with passion for job seekers worldwide. 🚀</p>
             </div>
         </div>
     </footer>
@@ -1269,227 +1361,283 @@
         const jobsData = [
             {
                 id: 1,
-                title: 'Senior Frontend Developer',
-                company: 'TechCorp Solutions',
-                location: 'San Francisco, CA',
+                title: 'Software Engineer - AI Infrastructure',
+                company: 'Google',
+                location: 'Mountain View, CA',
                 type: 'Full-time',
                 sector: 'Private',
-                salary: '$120k - $160k',
-                deadline: 'Dec 15, 2025',
-                logo: '🚀',
-                applyUrl: 'https://techcorp.com/careers',
-                description: 'Join our innovative team to build cutting-edge web applications using React, TypeScript, and modern tools.',
+                salary: '$150k - $220k',
+                deadline: 'Dec 20, 2025',
+                logo: '🔍',
+                applyUrl: 'https://careers.google.com/',
+                description: 'Build and operate infrastructure for AI agents at Google, ensuring reliability, scalability, and security for next-generation products.',
                 responsibilities: [
-                    'Develop responsive web applications',
-                    'Collaborate with design team',
-                    'Code review and mentoring',
-                    'Optimize application performance'
+                    'Design and implement scalable AI infrastructure',
+                    'Manage LLM services and deployment pipelines',
+                    'Develop observability and monitoring systems',
+                    'Collaborate with ML teams on production systems'
                 ],
                 requirements: [
-                    '5+ years React experience',
-                    'Strong TypeScript skills',
-                    'Experience with state management',
-                    'Excellent problem-solving'
+                    '5+ years software engineering experience',
+                    'Strong Python and Go programming skills',
+                    'Experience with Kubernetes and cloud platforms',
+                    'Knowledge of ML systems and LLMs'
                 ],
-                benefits: ['Health Insurance', 'Remote Work', '401k Matching', 'Unlimited PTO', 'Stock Options'],
-                skills: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Git'],
+                benefits: ['Health Insurance', 'Stock Options', 'Free Meals', '401k Matching', 'Learning Budget'],
+                skills: ['Python', 'Go', 'Kubernetes', 'AWS', 'PostgreSQL', 'Redis', 'Docker'],
                 rating: 4.8
             },
             {
                 id: 2,
-                title: 'UX/UI Designer',
-                company: 'Creative Studios',
-                location: 'Remote',
+                title: 'Senior UX Designer',
+                company: 'Meta',
+                location: 'Menlo Park, CA',
                 type: 'Full-time',
                 sector: 'Private',
-                salary: '$90k - $130k',
-                deadline: 'Dec 20, 2025',
-                logo: '🎨',
-                applyUrl: 'https://creativestudios.com/jobs',
-                description: 'Create beautiful and intuitive user experiences for our digital products.',
+                salary: '$140k - $190k',
+                deadline: 'Dec 25, 2025',
+                logo: '👥',
+                applyUrl: 'https://www.metacareers.com/',
+                description: 'Shape the future of social technology by designing intuitive experiences for billions of users across Meta platforms.',
                 responsibilities: [
-                    'Design user interfaces',
-                    'Create wireframes and prototypes',
-                    'Conduct user research',
-                    'Collaborate with developers'
+                    'Lead end-to-end product design',
+                    'Create wireframes, prototypes, and design systems',
+                    'Conduct user research and usability testing',
+                    'Collaborate with product and engineering teams'
                 ],
                 requirements: [
-                    '3+ years UI/UX experience',
-                    'Proficiency in Figma',
-                    'Strong portfolio',
-                    'Understanding of design systems'
+                    '5+ years UX/UI design experience',
+                    'Strong portfolio showcasing product design',
+                    'Proficiency in Figma and design tools',
+                    'Understanding of mobile and web platforms'
                 ],
-                benefits: ['Flexible Hours', 'Health Insurance', 'Professional Development', 'Home Office Setup'],
-                skills: ['Figma', 'Sketch', 'Adobe XD', 'Prototyping', 'User Research'],
-                rating: 4.6
-            },
-            {
-                id: 3,
-                title: 'Data Scientist',
-                company: 'DataMinds AI',
-                location: 'New York, NY',
-                type: 'Full-time',
-                sector: 'Private',
-                salary: '$130k - $180k',
-                deadline: 'Jan 10, 2026',
-                logo: '📊',
-                applyUrl: 'https://dataminds.ai/careers',
-                description: 'Work on exciting machine learning projects and help shape our AI-driven products.',
-                responsibilities: [
-                    'Build ML models',
-                    'Analyze large datasets',
-                    'Create data visualizations',
-                    'Present insights to stakeholders'
-                ],
-                requirements: [
-                    'PhD or Masters in related field',
-                    'Python expertise',
-                    'ML/DL experience',
-                    'Strong statistical knowledge'
-                ],
-                benefits: ['Competitive Salary', 'Research Budget', 'Conference Attendance', 'Equity'],
-                skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL', 'Statistics'],
-                rating: 4.9
-            },
-            {
-                id: 4,
-                title: 'Government Officer',
-                company: 'Public Service Commission',
-                location: 'Delhi, India',
-                type: 'Full-time',
-                sector: 'Government',
-                salary: '$45k - $65k',
-                deadline: 'Jan 31, 2026',
-                logo: '🏛️',
-                applyUrl: 'https://psc.gov.in/apply',
-                description: 'Join the civil services and contribute to public administration and policy implementation.',
-                responsibilities: [
-                    'Implement government policies',
-                    'Manage public programs',
-                    'Coordinate with departments',
-                    'Public service delivery'
-                ],
-                requirements: [
-                    'Graduate degree required',
-                    'Pass civil service examination',
-                    'Strong communication skills',
-                    'Understanding of governance'
-                ],
-                benefits: ['Job Security', 'Pension', 'Health Benefits', 'Housing Allowance'],
-                skills: ['Public Administration', 'Policy', 'Communication', 'Management', 'Leadership'],
+                benefits: ['Equity Grants', 'Health & Wellness', 'Remote Options', 'Professional Development', 'Parental Leave'],
+                skills: ['Figma', 'Sketch', 'Prototyping', 'User Research', 'Design Systems', 'A/B Testing'],
                 rating: 4.5
             },
             {
-                id: 5,
-                title: 'Backend Engineer',
-                company: 'CloudScale Inc',
-                location: 'Seattle, WA',
-                type: 'Contract',
+                id: 3,
+                title: 'Machine Learning Engineer',
+                company: 'Microsoft',
+                location: 'Redmond, WA',
+                type: 'Full-time',
                 sector: 'Private',
-                salary: '$115k - $155k',
-                deadline: 'Dec 25, 2025',
-                logo: '⚙️',
-                applyUrl: 'https://cloudscale.com/careers',
-                description: 'Build scalable backend systems and APIs that power millions of users.',
+                salary: '$160k - $230k',
+                deadline: 'Jan 15, 2026',
+                logo: '🪟',
+                applyUrl: 'https://careers.microsoft.com/',
+                description: 'Join the Azure AI team to build cutting-edge machine learning solutions that power enterprise applications worldwide.',
                 responsibilities: [
-                    'Design and build APIs',
-                    'Optimize database performance',
-                    'Implement microservices',
-                    'Ensure system reliability'
+                    'Develop and deploy ML models at scale',
+                    'Optimize model performance and accuracy',
+                    'Build MLOps pipelines and automation',
+                    'Research new AI/ML techniques'
                 ],
                 requirements: [
-                    '3+ years backend experience',
-                    'Node.js or Python',
-                    'Database expertise',
-                    'Cloud platform knowledge'
+                    'PhD or Masters in Computer Science or related field',
+                    'Strong Python and ML framework experience',
+                    'Published research or production ML experience',
+                    'Deep understanding of neural networks'
                 ],
-                benefits: ['Remote Options', '401k Match', 'Health & Dental', 'Paid Parental Leave'],
-                skills: ['Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes'],
+                benefits: ['Competitive Salary', 'Stock Awards', 'Health Coverage', 'Retirement Plans', 'Education Assistance'],
+                skills: ['Python', 'TensorFlow', 'PyTorch', 'Azure ML', 'SQL', 'Deep Learning', 'NLP'],
                 rating: 4.7
             },
             {
-                id: 6,
-                title: 'Marketing Manager',
-                company: 'GrowthHub',
-                location: 'Remote',
-                type: 'Part-time',
+                id: 4,
+                title: 'Cloud Solutions Architect',
+                company: 'Amazon Web Services',
+                location: 'Seattle, WA',
+                type: 'Full-time',
                 sector: 'Private',
-                salary: '$85k - $120k',
-                deadline: 'Jan 5, 2026',
-                logo: '📈',
-                applyUrl: 'https://growthhub.com/careers',
-                description: 'Lead marketing campaigns and drive growth for our B2B SaaS products.',
+                salary: '$145k - $210k',
+                deadline: 'Jan 10, 2026',
+                logo: '☁️',
+                applyUrl: 'https://www.amazon.jobs/',
+                description: 'Help enterprise customers design and implement cloud solutions on AWS, driving digital transformation at scale.',
                 responsibilities: [
-                    'Plan marketing campaigns',
-                    'Manage social media',
-                    'Analyze campaign performance',
-                    'Content strategy'
+                    'Design cloud architecture solutions',
+                    'Lead technical workshops and migrations',
+                    'Provide guidance on AWS best practices',
+                    'Build customer relationships and drive adoption'
                 ],
                 requirements: [
-                    '2+ years marketing experience',
-                    'Digital marketing skills',
-                    'Analytics knowledge',
-                    'Creative mindset'
+                    '5+ years cloud architecture experience',
+                    'AWS certifications required',
+                    'Strong understanding of microservices',
+                    'Excellent communication skills'
                 ],
-                benefits: ['Remote Work', 'Flexible Hours', 'Professional Growth', 'Team Events'],
-                skills: ['SEO', 'Content Marketing', 'Analytics', 'Social Media', 'Copywriting'],
-                rating: 4.4
+                benefits: ['Competitive Pay', 'RSUs', 'Health Benefits', 'Career Growth', 'Employee Discounts'],
+                skills: ['AWS', 'Kubernetes', 'Terraform', 'Docker', 'Python', 'Serverless', 'DevOps'],
+                rating: 4.6
+            },
+            {
+                id: 5,
+                title: 'Cybersecurity Analyst',
+                company: 'Apple',
+                location: 'Cupertino, CA',
+                type: 'Full-time',
+                sector: 'Private',
+                salary: '$130k - $180k',
+                deadline: 'Dec 28, 2025',
+                logo: '🍎',
+                applyUrl: 'https://www.apple.com/careers/',
+                description: 'Protect Apple\'s systems and user data by identifying vulnerabilities and implementing security solutions.',
+                responsibilities: [
+                    'Monitor and analyze security threats',
+                    'Conduct vulnerability assessments',
+                    'Implement security controls and policies',
+                    'Respond to security incidents'
+                ],
+                requirements: [
+                    '3+ years cybersecurity experience',
+                    'Security certifications (CISSP, CEH)',
+                    'Knowledge of threat intelligence',
+                    'Strong analytical skills'
+                ],
+                benefits: ['Excellent Benefits', 'Stock Options', 'Product Discounts', 'On-site Gym', 'Wellness Programs'],
+                skills: ['SIEM', 'Penetration Testing', 'Firewall', 'IDS/IPS', 'Python', 'Security Auditing'],
+                rating: 4.8
+            },
+            {
+                id: 6,
+                title: 'Product Manager - SaaS',
+                company: 'Atlassian',
+                location: 'Austin, TX',
+                type: 'Full-time',
+                sector: 'Private',
+                salary: '$135k - $185k',
+                deadline: 'Jan 5, 2026',
+                logo: '⚡',
+                applyUrl: 'https://www.atlassian.com/company/careers',
+                description: 'Lead product strategy for Jira and Confluence, helping teams collaborate better with innovative features.',
+                responsibilities: [
+                    'Define product roadmap and strategy',
+                    'Gather customer feedback and requirements',
+                    'Collaborate with engineering and design',
+                    'Launch and measure product features'
+                ],
+                requirements: [
+                    '4+ years product management experience',
+                    'SaaS or B2B product background',
+                    'Strong analytical and communication skills',
+                    'Experience with agile methodologies'
+                ],
+                benefits: ['Remote Flexible', 'Health Coverage', 'Stock Options', 'Learning Budget', 'Team Events'],
+                skills: ['Product Strategy', 'Agile', 'Analytics', 'User Research', 'SQL', 'A/B Testing'],
+                rating: 4.6
             },
             {
                 id: 7,
-                title: 'Teacher - Mathematics',
-                company: 'Department of Education',
-                location: 'Mumbai, India',
+                title: 'DevOps Engineer',
+                company: 'Netflix',
+                location: 'Los Gatos, CA',
                 type: 'Full-time',
-                sector: 'Government',
-                salary: '$35k - $50k',
-                deadline: 'Feb 15, 2026',
-                logo: '📚',
-                applyUrl: 'https://education.gov.in/recruitment',
-                description: 'Teaching mathematics to high school students in government schools.',
+                sector: 'Private',
+                salary: '$155k - $225k',
+                deadline: 'Jan 20, 2026',
+                logo: '🎬',
+                applyUrl: 'https://jobs.netflix.com/',
+                description: 'Build and maintain the infrastructure that delivers entertainment to 250+ million subscribers worldwide.',
                 responsibilities: [
-                    'Prepare lesson plans',
-                    'Conduct classes',
-                    'Evaluate student performance',
-                    'Parent-teacher meetings'
+                    'Automate deployment pipelines',
+                    'Manage cloud infrastructure at scale',
+                    'Implement monitoring and alerting',
+                    'Optimize system performance'
                 ],
                 requirements: [
-                    'B.Ed degree required',
-                    'Mathematics major',
-                    'Teaching certification',
-                    'Patient and dedicated'
+                    '5+ years DevOps experience',
+                    'Expert in AWS and container orchestration',
+                    'Strong scripting skills',
+                    'Experience with CI/CD tools'
                 ],
-                benefits: ['Job Security', 'Pension', 'Medical Benefits', 'Paid Holidays'],
-                skills: ['Mathematics', 'Teaching', 'Communication', 'Patience', 'Curriculum Design'],
-                rating: 4.3
+                benefits: ['Top Tier Salary', 'Unlimited PTO', 'Stock Options', 'Free Netflix', 'Parental Leave'],
+                skills: ['AWS', 'Kubernetes', 'Jenkins', 'Terraform', 'Python', 'Ansible', 'Monitoring'],
+                rating: 4.9
             },
             {
                 id: 8,
-                title: 'Freelance Writer',
-                company: 'ContentPro',
-                location: 'Remote',
-                type: 'Others',
+                title: 'Full Stack Developer',
+                company: 'Shopify',
+                location: 'Remote (Global)',
+                type: 'Full-time',
                 sector: 'Private',
-                salary: '$40k - $70k',
+                salary: '$120k - $170k',
                 deadline: 'Dec 30, 2025',
-                logo: '✍️',
-                applyUrl: 'https://contentpro.com/join',
-                description: 'Create engaging content for various clients across different industries.',
+                logo: '🛍️',
+                applyUrl: 'https://www.shopify.com/careers',
+                description: 'Build features that help millions of entrepreneurs run their businesses on the Shopify platform.',
                 responsibilities: [
-                    'Write blog posts and articles',
-                    'Research topics',
-                    'Edit and proofread',
-                    'Meet deadlines'
+                    'Develop full-stack web applications',
+                    'Write clean, maintainable code',
+                    'Collaborate with product teams',
+                    'Participate in code reviews'
                 ],
                 requirements: [
-                    'Excellent writing skills',
-                    'Portfolio of work',
-                    'SEO knowledge',
-                    'Self-motivated'
+                    '3+ years full-stack development',
+                    'Strong JavaScript and Ruby skills',
+                    'Experience with React and Rails',
+                    'Passion for e-commerce'
                 ],
-                benefits: ['Flexible Schedule', 'Work from Anywhere', 'Choose Projects', 'Good Pay'],
-                skills: ['Writing', 'SEO', 'Research', 'Editing', 'Content Strategy'],
-                rating: 4.2
+                benefits: ['Work from Anywhere', 'Health Benefits', 'Learning Fund', 'Equipment Budget', 'Flexible Hours'],
+                skills: ['React', 'Ruby on Rails', 'JavaScript', 'GraphQL', 'PostgreSQL', 'TypeScript'],
+                rating: 4.7
+            },
+            {
+                id: 9,
+                title: 'Data Engineer',
+                company: 'Snowflake',
+                location: 'San Mateo, CA',
+                type: 'Full-time',
+                sector: 'Private',
+                salary: '$140k - $195k',
+                deadline: 'Jan 12, 2026',
+                logo: '❄️',
+                applyUrl: 'https://careers.snowflake.com/',
+                description: 'Design and build data pipelines that process petabytes of data for enterprise customers.',
+                responsibilities: [
+                    'Build scalable data pipelines',
+                    'Optimize data warehouse performance',
+                    'Implement data quality frameworks',
+                    'Collaborate with analytics teams'
+                ],
+                requirements: [
+                    '4+ years data engineering experience',
+                    'Strong SQL and Python skills',
+                    'Experience with cloud data platforms',
+                    'Understanding of data modeling'
+                ],
+                benefits: ['Competitive Equity', 'Health Insurance', 'Remote Options', '401k', 'Professional Growth'],
+                skills: ['SQL', 'Python', 'Snowflake', 'Airflow', 'dbt', 'Spark', 'ETL'],
+                rating: 4.5
+            },
+            {
+                id: 10,
+                title: 'iOS Developer',
+                company: 'Spotify',
+                location: 'New York, NY',
+                type: 'Full-time',
+                sector: 'Private',
+                salary: '$135k - $185k',
+                deadline: 'Jan 8, 2026',
+                logo: '🎵',
+                applyUrl: 'https://www.lifeatspotify.com/jobs',
+                description: 'Create amazing mobile experiences for millions of music lovers on the Spotify iOS app.',
+                responsibilities: [
+                    'Develop iOS app features',
+                    'Write unit and integration tests',
+                    'Optimize app performance',
+                    'Collaborate with designers and backend teams'
+                ],
+                requirements: [
+                    '4+ years iOS development',
+                    'Expert in Swift and SwiftUI',
+                    'Strong understanding of iOS SDK',
+                    'Published apps in App Store'
+                ],
+                benefits: ['Spotify Premium', 'Flexible Work', 'Parental Leave', 'Wellness Allowance', 'Stock Options'],
+                skills: ['Swift', 'SwiftUI', 'iOS SDK', 'Xcode', 'Git', 'RESTful APIs', 'Unit Testing'],
+                rating: 4.7
             }
         ];
 
@@ -1501,8 +1649,14 @@
         let viewingSavedJobs = false;
 
         document.addEventListener('DOMContentLoaded', function () {
-            const storedName = localStorage.getItem('jobQuestUserName');
-            const storedSaved = localStorage.getItem('jobQuestSavedJobs');
+            const storedName = localStorage.getItem('workFormulaUserName');
+            const storedSaved = localStorage.getItem('workFormulaSavedJobs');
+            const storedTheme = localStorage.getItem('workFormulaTheme');
+
+            if (storedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '☀️';
+            }
 
             if (storedSaved) {
                 savedJobs = JSON.parse(storedSaved);
@@ -1527,11 +1681,18 @@
             });
         });
 
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('workFormulaTheme', isDark ? 'dark' : 'light');
+        }
+
         function saveUserName() {
             const nameInput = document.getElementById('userName').value.trim();
             if (nameInput) {
                 userName = nameInput;
-                localStorage.setItem('jobQuestUserName', userName);
+                localStorage.setItem('workFormulaUserName', userName);
                 document.getElementById('welcomeModal').style.display = 'none';
                 showGreeting();
             } else {
@@ -1819,7 +1980,7 @@
                 savedJobs.push(jobId);
             }
 
-            localStorage.setItem('jobQuestSavedJobs', JSON.stringify(savedJobs));
+            localStorage.setItem('workFormulaSavedJobs', JSON.stringify(savedJobs));
             updateSavedCount();
             renderJobs(viewingSavedJobs ? allJobs.filter(job => savedJobs.includes(job.id)) : filteredJobs);
 
@@ -1846,6 +2007,7 @@
             renderJobs(saved);
             document.getElementById('jobsFoundCount').textContent = `${saved.length} Saved Jobs`;
             document.getElementById('sidebar').classList.remove('active');
+            scrollToTop();
         }
 
         function filterJobs() {
@@ -1920,6 +2082,14 @@
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
+        }
+
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.getElementById('userName').addEventListener('keypress', function (e) {
